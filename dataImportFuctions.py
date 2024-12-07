@@ -236,3 +236,23 @@ def TS_extractor_v2(main_data_dic,
             #         dic_2minus0_FCs[key_12TimePoint_FCs].shape)
     return  dic_2back_TSs, dic_0back_TSs, dic_entire_TSs
             
+
+def TS_dic_to_NLDR_format(TS_dic,N_sellected):
+    TS_list= []
+    sellected_keys= []
+
+    for i,key in enumerate(TS_dic.keys()):
+        if i < N_sellected:
+            sellected_keys.append(key)
+
+    key0= list(TS_dic.keys())[0]
+    
+    N_parcels= TS_dic[key0].shape[1]
+    
+    for key in sellected_keys:
+        TS_list.append(TS_dic[key])
+
+    TS_array= np.array(TS_list)
+
+    TS_array= TS_array.reshape(-1, N_parcels)
+    return TS_array
