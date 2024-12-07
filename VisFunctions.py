@@ -42,7 +42,11 @@ def Rain_Cloud_vis1(data1,
         plt.plot([i-0.1,  i+0.1],  [mean, mean], color='black', linewidth=3)
         plt.plot([i-0.05, i+0.05], [quart3, quart3], color='black', linewidth=1)
 
-
+    # Dynamically adjust the y-axis limits to reduce empty space
+    data_min = min(np.min(data1), np.min(data2))
+    data_max = max(np.max(data1), np.max(data2))
+    data_range = data_max - data_min
+    plt.ylim(data_min - 0.3 * data_range, data_max + 0.3 * data_range)
     #plt.ylim(2, 7)
 
     # Enhance plot details
