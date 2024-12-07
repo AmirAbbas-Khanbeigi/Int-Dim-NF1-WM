@@ -153,31 +153,27 @@ def TS_extractor(main_data_dic,
     #     print(f"{key}: shape = {dic_AAL3_controls_2minus0_FCs[key].shape}")
     #     FC_matrix_dfs_plot([dic_AAL3_controls_2minus0_FCs[key]])
 
-def TS_extractor_v2(main_data_dic,
-                    index_list, 
+def TS_extractor_v2(main_data_dic, 
                     print_bool=False):
 
     # Dictionary to store arrays
     dic_2back_TSs = {}
     dic_0back_TSs = {}
     dic_entire_TSs = {}
-    #group_size = 12
-    # total_rows = 144
-    # selected_rows = [i for i in range(total_rows) if (i // group_size) % 2 != 0]
 
-    for key in main_data_dic.keys():  # Range from 001 to 020
+    for key in main_data_dic.keys():
         
         TS_2back= []
         TS_0back= []
         TS_entire= []
 
-        # keyTS = f'{i:03d}' 
-        keyTS = key 
         if print_bool==True:
-            print(f"main_data_dic[{keyTS}].shape= ", main_data_dic[keyTS].shape,
-                  " with the key as ", keyTS)
+            print(f"main_data_dic[{key}].shape= ", main_data_dic[key].shape,
+                  " with the key as ", key)
         
-        N_parcels= main_data_dic[keyTS].shape[1]
+        N_parcels= main_data_dic[key].shape[1]
+        if print_bool==True:
+            print('N_parcels= ', N_parcels)
         for j in range(6):
             # if print_bool==True:  
             #     print(f"{j+1}-th one minute:")
@@ -188,7 +184,7 @@ def TS_extractor_v2(main_data_dic,
             # if print_bool==True:  
             #     print("rows_2back= ", rows_2back)
             
-            twoback_TS_30secs= main_data_dic[keyTS][rows_2back, :]
+            twoback_TS_30secs= main_data_dic[key][rows_2back, :]
             # if print_bool==True:
             #     print("twoback_TS_30secs.shape= ", twoback_TS_30secs.shape)
             #     #print("twoback_TS_30secs= ", twoback_TS_30secs)
@@ -205,7 +201,7 @@ def TS_extractor_v2(main_data_dic,
             #     print("0back_rows= ", rows_0back)
             # zeroback_TS_30secs= np.zeros((12,166))
 
-            zeroback_TS_30secs = main_data_dic[keyTS][rows_0back, :]
+            zeroback_TS_30secs = main_data_dic[key][rows_0back, :]
             # if print_bool==True:
                 # print("zeroback_TS_30secs.shape= ", zeroback_TS_30secs.shape)
                 # #print("zeroback_TS_30secs= ", zeroback_TS_30secs)
@@ -218,7 +214,7 @@ def TS_extractor_v2(main_data_dic,
             TS_0back.append(zeroback_TS_30secs)
 
         #entire
-        TS_entire= main_data_dic[keyTS]
+        TS_entire= main_data_dic[key]
 
         TS_2back= np.array(TS_2back)
         TS_0back= np.array(TS_0back)
@@ -227,9 +223,9 @@ def TS_extractor_v2(main_data_dic,
         TS_2back = TS_2back.reshape(-1, N_parcels)
         TS_0back = TS_0back.reshape(-1, N_parcels)
 
-        dic_2back_TSs[keyTS]= TS_2back
-        dic_0back_TSs[keyTS]= TS_0back
-        dic_entire_TSs[keyTS]= TS_entire
+        dic_2back_TSs[key]= TS_2back
+        dic_0back_TSs[key]= TS_0back
+        dic_entire_TSs[key]= TS_entire
 
 
 
@@ -240,8 +236,3 @@ def TS_extractor_v2(main_data_dic,
             #         dic_2minus0_FCs[key_12TimePoint_FCs].shape)
     return  dic_2back_TSs, dic_0back_TSs, dic_entire_TSs
             
-        #print(np.shape(dic_AAL3_controls[key]))
-
-    # for key in sorted(dic_AAL3_controls_2minus0_FCs.keys()):
-    #     print(f"{key}: shape = {dic_AAL3_controls_2minus0_FCs[key].shape}")
-    #     FC_matrix_dfs_plot([dic_AAL3_controls_2minus0_FCs[key]])
