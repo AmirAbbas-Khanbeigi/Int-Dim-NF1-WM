@@ -51,6 +51,7 @@ def main_data_dic_generator(base_dir,
         key = f'{i:03d}'  # Creates string with leading zeros, e.g., 'array_001'
         dic[key] = df.to_numpy().transpose()
         if print_bool==True:
+            print('key= ', key)
             print(np.shape(dic[key]))
     
     if print_bool==True:
